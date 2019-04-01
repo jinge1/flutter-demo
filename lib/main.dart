@@ -28,12 +28,8 @@ class App extends StatelessWidget{
       title: 'hello word',
       color: Colors.red,
       theme: defaultTargetPlatform == TargetPlatform.iOS
-          ? kIOSTheme
-          : kDefaultTheme,
-      // theme: ThemeData(
-      //   // primarySwatch: Colors.orange,
-      //   primaryColor: Color(0xFFFFFFFF)
-      // ),
+        ? kIOSTheme
+        : kDefaultTheme,
       routes: _routes,
       initialRoute: '/'
     );
@@ -52,51 +48,48 @@ class HomePage extends StatelessWidget{
       ),
       body: new ListView(
         children: [
-          Row(
-            children: [
+          Container(
+            child: Row(children: <Widget>[
+              Image.asset("assets/black.png"),
               Container(
-                child: Image.asset("assets/black.png"),
-                padding: EdgeInsets.only(top:10.0, bottom: 10.0, right: 10.0, left: 10.0),
+                child: Column(children: <Widget>[
+                  Container(
+                    child: Text(
+                      'Widget', 
+                      style: TextStyle(
+                        color: Colors.black54,
+                        fontSize: 24.0
+                      ),
+                    ),
+                    padding: EdgeInsets.only(top:0, right: 10.0, bottom: 0, left: 10.0),
+                  ),
+                  Container(
+                    width: 200,
+                    child: Text(
+                      'Widget是临时对象，用于构建当前状态下的应用程序，而State对象在多次调用build()之间保持不变',
+                      softWrap: true,
+                      maxLines: 6
+                    ),
+                  )
+                ])
               ),
-              Container(
-                child: Text('google')
-              ),
-            ]
+            ]),
+            padding: EdgeInsets.only(top:10.0, bottom: 10.0, right: 10.0, left: 10.0),
           ),
-          IconButton(            //发送按钮
-            icon: Text('to login'),
-            onPressed: ()=> {
-                Navigator.push(
-                  context,
-                MaterialPageRoute(builder: (context) => LoginPage()),
-              )
-            }
+
+          Container(
+            child: IconButton(            //发送按钮
+              icon: Text('to login'),
+              onPressed: ()=> {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginPage()),
+                )
+              }
+            )
           )
         ]
       )
-      
-      // Container(
-      //   child: Row(
-      //     children: [
-      //       Text(
-      //         'hello',
-      //         style:TextStyle(
-      //           fontSize: 24.0,
-      //           color: Colors.orange
-      //         )
-      //       ),
-      //       IconButton(            //发送按钮
-      //         icon: Text('click'),
-      //         onPressed: ()=> {
-      //            Navigator.push(
-      //              context,
-      //             MaterialPageRoute(builder: (context) => LoginPage()),
-      //           )
-      //         }
-      //       )
-      //     ]
-      //   )
-      // )
     );
   }
 }
@@ -109,7 +102,6 @@ class LoginPage extends StatefulWidget{
 }
 
 class LoginState extends State {
-
   bool isMobile = false;
   final RegExp mobileReg = new RegExp(r"(1\d{10})");
 
@@ -124,11 +116,11 @@ class LoginState extends State {
         MaterialPageRoute(builder: (context) => HomePage('from login')),
       );
     }else{
-      showDialog<Null>(
+      showDialog(
         context: context,
         barrierDismissible: false,
         builder: (BuildContext context) {
-          return new AlertDialog(
+          return AlertDialog(
               title: new Text('错误提示！'),
               content: new SingleChildScrollView(
                 child: Text('手机号格式输入有误'),
